@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/db_student">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="1234"></property>
+		<property name="maxActive" value="100"></property>
+		<property name="maxIdle" value="30"></property>
+		<property name="maxWait" value="500"></property>
+		<property name="defaultAutoCommit" value="true"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<!-- 
+				    <prop key="hibernate.hbm2ddl.auto">create</prop> 
+				-->
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/course/pojo/Course.hbm.xml</value>
+				<value>com/course/pojo/Manager.hbm.xml</value>
+				<value>com/course/pojo/Student.hbm.xml</value>
+				<value>com/course/pojo/Stucourse.hbm.xml</value></list>
+		</property>
+	  </bean>
+	  <bean id="stuDao" class="com.course.dao.StuDaoImpl">
+	       <property name="sessionFactory" ref="sessionFactory"></property>
+	  </bean>
+	   <bean id="stuService" class="com.course.service.StuServiceImpl">
+	       <property name="stuDao" ref="stuDao"></property>
+	  </bean>
+	  <bean id="adminDao" class="com.course.dao.AdminDaoImpl">
+	       <property name="sessionFactory" ref="sessionFactory"></property>
+	  </bean>
+	   <bean id="adminService" class="com.course.service.AdminServiceImpl">
+	       <property name="adminDao" ref="adminDao"></property>
+	  </bean>
+	  <bean name="saveStuAction" class="com.course.action.SaveStuAction">
+	       <property name="stuService" ref="stuService"></property> 
+	  </bean>
+	  <bean name="stuLoginAction" class="com.course.action.StuLoginAction">
+	       <property name="stuService" ref="stuService"></property> 
+	  </bean>
+	  <bean name="listStuInfoAction" class="com.course.action.ListStuInfoAction">
+	       <property name="adminService" ref="adminService"></property> 
+	  </bean>
+	  <bean name="selCourseAction" class="com.course.action.SelCourseAction">
+	       <property name="adminService" ref="adminService"></property> 
+	       <property name="stuService" ref="stuService"></property>
+	  </bean>
+	  <bean name="delSelCourseAction" class="com.course.action.DelSelCourse">
+	       <property name="adminService" ref="adminService"></property> 
+	       <property name="stuService" ref="stuService"></property>
+	  </bean>
+	  <bean name="adminLoginAction" class="com.course.action.AdminLoginAction">
+	       <property name="adminService" ref="adminService"></property> 
+	  </bean>
+	   <bean name="listInfoAction" class="com.course.action.ListInfoAction">
+	       <property name="adminService" ref="adminService"></property> 
+	  </bean>
+	  <bean name="addCourseAction" class="com.course.action.AddCourseAction">
+	       <property name="adminService" ref="adminService"></property> 
+	  </bean>
+	  <bean name="delCourseAction" class="com.course.action.DelCourseAction">
+	       <property name="adminService" ref="adminService"></property> 
+	  </bean>
+	  <bean name="updateCourseAction" class="com.course.action.UpdateCourseAction">
+	       <property name="adminService" ref="adminService"></property> 
+	  </bean>
+	   <bean name="showCourseAction" class="com.course.action.ShowCourseAction">
+	       <property name="adminService" ref="adminService"></property> 
+	  </bean>
+	  <bean name="showStuCourse" class="com.course.action.ShowStuCourse">
+	       <property name="adminService" ref="adminService"></property> 
+	  </bean>
+	   <bean name="showCourseStu" class="com.course.action.ShowCourseStu">
+	       <property name="adminService" ref="adminService"></property> 
+	  </bean>
+</beans>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="student" extends="struts-default">
+        <action name="reg" class="saveStuAction">
+             <result name="success">/login.jsp</result>
+        </action>
+        <action name="login" class="stuLoginAction">
+             <result name="success" type="redirect">listStuInfo.action</result>
+             <result name="input">/login.jsp</result>
+        </action>
+        <action name="listStuInfo" class="listStuInfoAction">
+             <result name="success">/stu_info.jsp</result>
+        </action>
+        <action name="selCourse" class="selCourseAction">
+             <result name="success" type="redirect">listStuInfo.action</result>
+        </action>
+        <action name="delSelCourse" class="delSelCourseAction">
+             <result name="success" type="redirect">listStuInfo.action</result>
+        </action>
+        <action name="admin_login" class="adminLoginAction">
+             <result name="success" type="redirect">listInfo.action</result>
+             <result name="input">/admin_login.jsp</result>
+        </action>
+        <action name="listInfo" class="listInfoAction">
+             <result name="success">/main.jsp</result>
+        </action>
+        <action name="delCourse" class="delCourseAction">
+             <result name="success" type="redirect">listInfo.action</result>
+        </action>
+        <action name="updateCourse" class="updateCourseAction">
+             <result name="success" type="redirect">listInfo.action</result>
+        </action>
+        <action name="addCourse" class="addCourseAction">
+             <result name="success" type="redirect">listInfo.action</result>
+        </action>
+        <action name="showCourse" class="showCourseAction">
+             <result name="success">/course_update.jsp</result>
+        </action>
+        <action name="showStuCourse" class="showStuCourse">
+             <result name="success">/stuCourse.jsp</result>
+        </action>
+        <action name="showCourseStu" class="showCourseStu">
+             <result name="success">/courseStu.jsp</result>
+        </action>
+    </package>
+</struts>    
